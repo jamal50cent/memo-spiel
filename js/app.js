@@ -30,9 +30,13 @@ async function startGame() {
 
 // Zum Bilder Herunterladen
 async function fetchImages() {
-    const response = await fetch(API_URL, { headers });
+    try {
+        const response = await fetch(API_URL, { headers });
     const data = await response.json();
     return data.photos.map(photo => ({ url: photo.src.medium, title: photo.photographer }));
+    } catch(error) {
+        console.error('Error beim Laden von Bilder: ', e);
+    }
 }
 
 // Erstellen von Karten aus Bildern
