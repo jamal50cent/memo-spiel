@@ -1,5 +1,6 @@
 const API_URL = 'https://api.pexels.com/v1/search?query=nature&per_page=8';
-const API_KEY = 'Bt7E6qEYhRlujKyUeOV566LG9WKckw1g8r4vYGo2Trqj5rGo4FSkf2ja'; // Hier Ihren Pexels API-Key einfügen
+// Pexels API-Key zum Herunterladen von Bilder
+const API_KEY = 'Bt7E6qEYhRlujKyUeOV566LG9WKckw1g8r4vYGo2Trqj5rGo4FSkf2ja';
 const headers = {
     'Authorization': API_KEY
 };
@@ -27,12 +28,14 @@ async function startGame() {
     startTime = new Date();
 }
 
+// Zum Bilder Herunterladen
 async function fetchImages() {
     const response = await fetch(API_URL, { headers });
     const data = await response.json();
     return data.photos.map(photo => ({ url: photo.src.medium, title: photo.photographer }));
 }
 
+// Erstellen von Karten aus Bildern
 function createCards(images) {
     cards.length = 0;
     images.forEach(image => {
@@ -41,6 +44,7 @@ function createCards(images) {
     });
 }
 
+// Erstelle einzelne Card aus einenm Bild
 function createCard(image) {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -52,6 +56,7 @@ function createCard(image) {
     return card;
 }
 
+// Zufällig Ordnen von Cards
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
 }
